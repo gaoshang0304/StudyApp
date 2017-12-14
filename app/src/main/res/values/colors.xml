@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1296db</color>
+    <color name="colorPrimaryDark">#1296db</color>
+    <color name="colorAccent">#1296db</color>
+
+    <color name="black_overlay">#66000000</color>
+
+    <color name="color_bottom_tab_normal">#a9a9a9</color>
+    <color name="color_bottom_tab_selected">#1296db</color>
+    <color name="white">#ffffff</color>
+    <!-- 主题相关颜色 -->
+    <color name="bg_color">#b3ffffff</color>
+    <color name="window_background_dark">#ff303030</color>
+    <color name="text_color_light">#b3ffffff</color>
+    <color name="text_color_dark">#de000000</color>
+    <color name="list_divider_light">#ffe0e0e0</color>
+    <color name="list_divider_dark">#ff666666</color>
+
+</resources>
