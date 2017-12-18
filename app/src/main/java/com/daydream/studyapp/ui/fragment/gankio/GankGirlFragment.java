@@ -53,7 +53,7 @@ public class GankGirlFragment extends BaseFragment implements BaseQuickAdapter.R
     }
 
     private void handleData(List<GankGirlItemBean> item) {
-        mAdapter = new GankGirlsAdapter(getActivity(), item);
+        mAdapter = new GankGirlsAdapter(getContext(), item);
 //        mAdapter.setOnLoadMoreListener(this, rvGankioGirl);
 //        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
 //            @Override
