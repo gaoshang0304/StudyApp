@@ -2,45 +2,42 @@ package com.daydream.studyapp.ui.fragment.gankio;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.daydream.studyapp.R;
-import com.daydream.studyapp.adapter.GankGirlAdapter;
 import com.daydream.studyapp.adapter.GankGirlsAdapter;
-import com.daydream.studyapp.api.GankApis;
 import com.daydream.studyapp.constants.Constants;
+import com.daydream.studyapp.http.HttpCallBack;
+import com.daydream.studyapp.http.HttpUtils;
 import com.daydream.studyapp.service.base.fragment.BaseFragment;
 import com.daydream.studyapp.service.entity.gankio.GankGirlItemBean;
 import com.daydream.studyapp.service.entity.gankio.GankGirlListBean;
-import com.daydream.studyapp.service.http.RetrofitHelper;
+import com.google.gson.Gson;
 
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author gjc
  * @version ;;
  * @since 2017-12-13
  */
-public class GankGirlFragment extends BaseFragment implements BaseQuickAdapter.RequestLoadMoreListener {
+public class GankGirlFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.rv_gankio_girl)
     RecyclerView rvGankioGirl;
+    @BindView(R.id.srl_refresh)
+    SwipeRefreshLayout srl_refresh;
+
     private int mPage = 1;
     private GankGirlsAdapter mAdapter;
     private List<GankGirlItemBean> mBean;
+    private int visibleThreshold = 5;
+    private boolean canLoadMore = true;
 
     @Override
     public int getLayoutId() {
@@ -49,56 +46,86 @@ public class GankGirlFragment extends BaseFragment implements BaseQuickAdapter.R
 
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
+        srl_refresh.setOnRefreshListener(this);
+        rvGankioGirl.setLayoutManager(new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL));
+        rvGankioGirl.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
+                int itemCount = layoutManager.getItemCount();
+                int[] positions = layoutManager.findLastVisibleItemPositions(new int[layoutManager.getSpanCount()]);
+                int lastPosition = findMax(positions);
+                Log.i("lastPosition --> ", lastPosition + "");
+                Log.i("itemCount  --> ", itemCount + " ");
+                //如果当前不是正在加载更多，并且到了该加载更多的位置，加载更多。
+                if ((lastPosition >= (itemCount - visibleThreshold))) {
+                    if (canLoadMore) {
+                        ++mPage;
+                        loadData();
+                    }
+                }
+
+            }
+        });
         loadData();
     }
 
+    @Override
+    public void onRefresh() {
+        srl_refresh.setRefreshing(true);
+        mPage = 1;
+        loadData();
+    }
+
+    private int findMax(int[] lastPositions) {
+        int max = lastPositions[0];
+        for (int value : lastPositions) {
+            if (value > max) {
+                max = value;
+            }
+        }
+        return max;
+    }
+
     private void handleData(List<GankGirlItemBean> item) {
-        mAdapter = new GankGirlsAdapter(getContext(), item);
-//        mAdapter.setOnLoadMoreListener(this, rvGankioGirl);
-//        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//            }
-//        });
-        rvGankioGirl.setAdapter(mAdapter);
-        rvGankioGirl.setLayoutManager(new StaggeredGridLayoutManager(2,
-                StaggeredGridLayoutManager.VERTICAL));
+        if (item == null) {
+
+        }
+        if (mPage == 1) {
+            mBean = item;
+            mAdapter = new GankGirlsAdapter(getContext(), mBean);
+            rvGankioGirl.setAdapter(mAdapter);
+        } else {
+            mBean.addAll(item);
+            mAdapter.notifyDataSetChanged();
+        }
+        srl_refresh.setRefreshing(false);
+
     }
 
     /**
      * 请求数据
      */
     private void loadData() {
-        GankApis api = RetrofitHelper.createApi(GankApis.class, Constants.GANK_HOST);
-        api.getGankGirlData(20, mPage)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<GankGirlListBean>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
+        String url = Constants.GANK_HOST + "api/data/福利/20/" + mPage;
+        HttpUtils.doGet(url, new HttpCallBack() {
+            @Override
+            public void onSuccess(String data) {
+                Log.e("tag", data);
+                GankGirlListBean listBean = new Gson().fromJson(data, GankGirlListBean.class);
+                if (!listBean.isError()) {
+                    handleData(listBean.getResults());
+                }
+            }
 
-                    }
-
-                    @Override
-                    public void onNext(GankGirlListBean value) {
-                        handleData(value.getResults());
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+            @Override
+            public void onError(String msg) {
+                handleData(null);
+            }
+        });
     }
 
-    @Override
-    public void onLoadMoreRequested() {
-
-    }
 }
