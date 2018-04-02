@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.daydream.studyapp.R;
-import com.daydream.studyapp.service.base.fragment.BaseFragment;
+import com.daydream.studyapp.mvp.base.BaseFragment;
 
 /**
  * @author gjc

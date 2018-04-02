@@ -7,11 +7,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TableLayout;
 
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.adapter.FragmentAdapter;
-import com.daydream.studyapp.service.base.fragment.BaseFragment;
+import com.daydream.studyapp.mvp.base.BaseFragment;
 import com.daydream.studyapp.ui.fragment.gankio.GankGirlFragment;
 import com.daydream.studyapp.ui.fragment.gankio.GankNewsFragment;
 
