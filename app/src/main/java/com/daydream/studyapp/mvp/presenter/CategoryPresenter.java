@@ -1,5 +1,7 @@
 package com.daydream.studyapp.mvp.presenter;
 
+import android.content.Context;
+
 import com.daydream.studyapp.mvp.base.RxPresenter;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
 import com.daydream.studyapp.mvp.contract.CategoryContract;
@@ -17,15 +19,15 @@ import java.util.List;
 
 public class CategoryPresenter extends RxPresenter<CategoryContract.View> implements CategoryContract.Presenter {
 
-    private DataManager mDataManager;
+    private Context mContext;
 
-    public CategoryPresenter(DataManager dataManager) {
-        this.mDataManager = dataManager;
+    public CategoryPresenter(Context context) {
+        this.mContext = context;
     }
 
     @Override
     public void getCategory() {
-        addSubscribe(mDataManager.getCategoryData()
+        addSubscribe(DataManager.getInstance(mContext).getCategoryData()
                 .compose(RxUtil.<List<CategoryBean>>rxSchedulerHelper())
                 .subscribeWith(new CommonSubscriber<List<CategoryBean>>(mView) {
                     @Override

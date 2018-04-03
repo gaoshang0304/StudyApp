@@ -12,5 +12,5 @@ public class Constants {
     /**
      * 开眼视频
      */
-    public static String OPEN_EYE_HOST = "http://http://baobab.kaiyanapp.com/api/";
+    public static String OPEN_EYE_HOST = "http://baobab.kaiyanapp.com/api/";
 }

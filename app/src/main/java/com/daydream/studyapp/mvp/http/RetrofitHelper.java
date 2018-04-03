@@ -1,5 +1,11 @@
 package com.daydream.studyapp.mvp.http;
 
+import android.content.Context;
+
+import com.daydream.studyapp.api.OpenEyesApis;
+import com.daydream.studyapp.constants.Constants;
+import com.google.gson.GsonBuilder;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -18,12 +24,29 @@ public class RetrofitHelper {
     private static final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY);
     private static RetrofitHelper instance = null;
+    private Context mContext;
+    private OpenEyesApis openEyesService;
 
-    public static RetrofitHelper getInstance() {
+    public static RetrofitHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new RetrofitHelper();
+            instance = new RetrofitHelper(context);
         }
         return instance;
+    }
+
+    public RetrofitHelper(Context context) {
+        this.mContext = context;
+        init();
+    }
+
+    private void init() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.OPEN_EYE_HOST)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        openEyesService = retrofit.create(OpenEyesApis.class);
     }
 
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -39,14 +62,8 @@ public class RetrofitHelper {
             .retryOnConnectionFailure(true)
             .build();
 
-    public <T> T createRetrofit(Class<T> clazz, String url) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .client(okHttpClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        return retrofit.create(clazz);
+    public OpenEyesApis getOpenEyesService() {
+        return openEyesService;
     }
 }
 

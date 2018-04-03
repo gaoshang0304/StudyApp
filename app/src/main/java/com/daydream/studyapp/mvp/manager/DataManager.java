@@ -1,7 +1,8 @@
 package com.daydream.studyapp.mvp.manager;
 
+import android.content.Context;
+
 import com.daydream.studyapp.api.OpenEyesApis;
-import com.daydream.studyapp.constants.Constants;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
 import com.daydream.studyapp.mvp.http.HttpHelper;
 import com.daydream.studyapp.mvp.http.RetrofitHelper;
@@ -18,10 +19,23 @@ import io.reactivex.Flowable;
 
 public class DataManager implements HttpHelper {
 
+    private volatile static DataManager instance;
     private final OpenEyesApis retrofitService;
 
-    public DataManager() {
-        retrofitService = RetrofitHelper.getInstance().createRetrofit(OpenEyesApis.class, Constants.OPEN_EYE_HOST);
+    private DataManager(Context context) {
+        retrofitService = RetrofitHelper.getInstance(context).getOpenEyesService();
+    }
+
+    //由于该对象会被频繁调用，采用单例模式，下面是一种线程安全模式的单例写法
+    public static DataManager getInstance(Context context) {
+        if (instance == null) {
+            synchronized (DataManager.class) {
+                if (instance == null) {
+                    instance = new DataManager(context);
+                }
+            }
+        }
+        return instance;
     }
 
     @Override

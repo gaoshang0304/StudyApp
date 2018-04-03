@@ -12,8 +12,8 @@ import com.daydream.studyapp.adapter.CategoryAdapter;
 import com.daydream.studyapp.mvp.base.BaseMvpFragment;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
 import com.daydream.studyapp.mvp.contract.CategoryContract;
-import com.daydream.studyapp.mvp.manager.DataManager;
 import com.daydream.studyapp.mvp.presenter.CategoryPresenter;
+import com.daydream.studyapp.weight.RvSpaceItemDec;
 
 import java.util.List;
 
@@ -32,7 +32,7 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
 
     @Override
     public CategoryPresenter initPresenter() {
-        return new CategoryPresenter(new DataManager());
+        return new CategoryPresenter(getActivity());
     }
 
     @Override
@@ -42,15 +42,17 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
 
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
+        toolBar.setTitle("分类");
         GridLayoutManager glm = new GridLayoutManager(mContext, 2);
         rvCategory.setLayoutManager(glm);
+        rvCategory.addItemDecoration(new RvSpaceItemDec(50));
 
         mPresenter.getCategory();
     }
 
     @Override
     public void showCategory(List<CategoryBean> list) {
-        rvCategory.setAdapter(new CategoryAdapter(mContext, list));
+        rvCategory.setAdapter(new CategoryAdapter(getActivity(), list));
     }
 
 }

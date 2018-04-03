@@ -14,9 +14,6 @@ import com.daydream.studyapp.util.glide.ImageLoader;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * @author gjc
  * @version ;;
@@ -63,17 +60,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         return mBean.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_item_bg)
-        ImageView ivItemBg;
-        @BindView(R.id.tv_category_name)
-        TextView tvCategoryName;
+        private final ImageView ivItemBg;
+        private final TextView tvCategoryName;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ivItemBg = (ImageView) itemView.findViewById(R.id.iv_item_bg);
+            tvCategoryName = (TextView) itemView.findViewById(R.id.tv_category_name);
         }
+
 
     }
 
