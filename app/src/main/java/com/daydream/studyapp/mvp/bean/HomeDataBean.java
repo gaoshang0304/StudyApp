@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2018-04-02
  */
 
-public class HomeDataListBean {
+public class HomeDataBean {
 
     private String nextPageUrl;
     private long nextPublishTime;

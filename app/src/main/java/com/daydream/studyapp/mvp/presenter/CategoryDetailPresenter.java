@@ -18,6 +18,7 @@ import com.daydream.studyapp.weight.CommonSubscriber;
 public class CategoryDetailPresenter extends RxPresenter<CategoryDetailContract.View> implements CategoryDetailContract.Presenter {
 
     private Context mContext;
+    private String nextPageUrl = null;
 
     public CategoryDetailPresenter(Context context) {
         mContext = context;
@@ -31,13 +32,21 @@ public class CategoryDetailPresenter extends RxPresenter<CategoryDetailContract.
 
                 @Override
                 public void onNext(IssueListBean issueListBean) {
+                    nextPageUrl = issueListBean.getNextPageUrl();
                     mView.showCategoryDetail(issueListBean);
                 }
             }));
     }
 
     @Override
-    public void getMoreCategoryDetail(String nextPageUrl) {
-
+    public void getMoreCategoryDetail() {
+        addSubscribe(DataManager.getInstance(mContext).getMoreCategoryDetail(nextPageUrl)
+                .compose(RxUtil.<IssueListBean>rxSchedulerHelper())
+                .subscribeWith(new CommonSubscriber<IssueListBean>(mView) {
+                    @Override
+                    public void onNext(IssueListBean issueListBean) {
+                        mView.showCategoryDetail(issueListBean);
+                    }
+                }));
     }
 }

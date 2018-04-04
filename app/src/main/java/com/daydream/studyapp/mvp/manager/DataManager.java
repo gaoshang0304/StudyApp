@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.daydream.studyapp.api.OpenEyesApis;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
+import com.daydream.studyapp.mvp.bean.HomeDataBean;
 import com.daydream.studyapp.mvp.bean.IssueListBean;
 import com.daydream.studyapp.mvp.http.HttpHelper;
 import com.daydream.studyapp.mvp.http.RetrofitHelper;
@@ -37,6 +38,11 @@ public class DataManager implements HttpHelper {
             }
         }
         return instance;
+    }
+
+    @Override
+    public Flowable<HomeDataBean> getHomeData() {
+        return retrofitService.getHomeData();
     }
 
     @Override

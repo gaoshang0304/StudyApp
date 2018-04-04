@@ -2,12 +2,14 @@ package com.daydream.studyapp.api;
 
 import com.daydream.studyapp.mvp.bean.CategoryBean;
 import com.daydream.studyapp.mvp.bean.IssueListBean;
+import com.daydream.studyapp.mvp.bean.HomeDataBean;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 /**
  * 开眼视频
@@ -18,6 +20,12 @@ import retrofit2.http.Query;
  */
 
 public interface OpenEyesApis {
+
+    /**
+     * 首页精选
+     */
+    @GET("v2/feed?")
+    Flowable<HomeDataBean> getHomeData();
 
     /**
      * 分类
@@ -34,7 +42,7 @@ public interface OpenEyesApis {
     /**
      * 分类详情
      */
-    @GET()
-    Flowable<IssueListBean> getMoreCategoryDetail(String path);
+    @GET
+    Flowable<IssueListBean> getMoreCategoryDetail(@Url String path);
 
 }

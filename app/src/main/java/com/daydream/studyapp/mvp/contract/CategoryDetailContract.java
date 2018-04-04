@@ -18,14 +18,13 @@ public interface CategoryDetailContract {
 
        void showCategoryDetail(IssueListBean bean);
 
-       void showMoreCategoryDetail(IssueListBean bean);
     }
 
     interface Presenter extends BasePresenter<View> {
 
         void getCategoryDetailList(long id);
 
-        void getMoreCategoryDetail(String nextPageUrl);
+        void getMoreCategoryDetail();
     }
 
 }

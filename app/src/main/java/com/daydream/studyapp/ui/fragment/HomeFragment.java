@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.mvp.base.BaseMvpFragment;
+import com.daydream.studyapp.mvp.bean.HomeDataBean;
 import com.daydream.studyapp.mvp.contract.HomeContract;
 import com.daydream.studyapp.mvp.presenter.HomePresenter;
 
@@ -28,11 +29,11 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @Override
     public HomePresenter initPresenter() {
-        return new HomePresenter();
+        return new HomePresenter(mContext);
     }
 
     @Override
-    public void showContent() {
+    public void showContent(HomeDataBean homeDataBean) {
 
     }
 

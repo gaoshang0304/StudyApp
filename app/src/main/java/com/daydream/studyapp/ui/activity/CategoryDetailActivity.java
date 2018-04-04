@@ -1,11 +1,14 @@
 package com.daydream.studyapp.ui.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.adapter.CategoryDetailAdapter;
@@ -36,15 +39,19 @@ public class CategoryDetailActivity extends BaseMvpActivity<CategoryDetailPresen
                                                                                      CategoryDetailContract.View, CategoryDetailAdapter.OnItemClickListener {
     @BindView(R.id.category_detail_backdrop)
     ImageView imageDrop;
+    @BindView(R.id.category_detail_collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
     @BindView(R.id.category_detail_toolbar)
     Toolbar toolBar;
+    @BindView(R.id.category_detail_tv_category_desc)
+    TextView tvCategoryDesc;
     @BindView(R.id.category_detail_rv_content)
     RecyclerView rvContent;
 
     private CategoryBean item;
     private List<ItemListBean> mList = new ArrayList<>();
     private CategoryDetailAdapter mAdapter;
-    private IssueListBean mBean;
+    private boolean loadingMore;
 
     @Override
     public CategoryDetailPresenter initPresenter() {
@@ -53,19 +60,25 @@ public class CategoryDetailActivity extends BaseMvpActivity<CategoryDetailPresen
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        setSupportActionBar(toolBar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         String extra = getIntent().getStringExtra(Constants.CATEGORY_DETAIL_ITEM);
         if (extra != null) {
             item = JsonUtil.parseJsonToBean(extra, CategoryBean.class);
             ImageLoader.loadImage(this, item.getHeaderImage(), imageDrop);
-            toolBar.setTitle("#" + item.getName());
+            collapsingToolbar.setTitle(item.getName());
+            collapsingToolbar.setExpandedTitleColor(Color.WHITE); //设置还没收缩时状态下字体颜色
+            collapsingToolbar.setCollapsedTitleTextColor(Color.BLACK); //设置还没收缩时状态下字体颜色
         }
+        tvCategoryDesc.setText("#" + item.getDescription() + "#");
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        LinearLayoutManager llm = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager llm = new LinearLayoutManager(mContext);
         rvContent.setLayoutManager(llm);
         mAdapter = new CategoryDetailAdapter(this, mList);
         rvContent.setAdapter(mAdapter);
@@ -73,7 +86,20 @@ public class CategoryDetailActivity extends BaseMvpActivity<CategoryDetailPresen
         showProgressDialog("加载中...");
 
         mPresenter.getCategoryDetailList(item.getId());
-        //mPresenter.getMoreCategoryDetail(mBean.getNextPageUrl());
+        //自动加载更多
+        rvContent.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                int itemCount = recyclerView.getLayoutManager().getItemCount();
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int position = layoutManager.findLastVisibleItemPosition();
+                if (!loadingMore && position == (itemCount - 1)) {
+                    loadingMore = true;
+                    mPresenter.getMoreCategoryDetail();
+                }
+            }
+        });
     }
 
     @Override
@@ -83,15 +109,10 @@ public class CategoryDetailActivity extends BaseMvpActivity<CategoryDetailPresen
 
     @Override
     public void showCategoryDetail(IssueListBean item) {
-        mBean = item;
+        loadingMore = false;
         mList.addAll(item.getItemList());
         mAdapter.notifyDataSetChanged();
         hideProgressDialog();
-    }
-
-    @Override
-    public void showMoreCategoryDetail(IssueListBean item) {
-
     }
 
     @Override
