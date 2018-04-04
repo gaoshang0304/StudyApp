@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 /**
  * 分类详情
@@ -67,6 +68,18 @@ public class CategoryDetailActivity extends BaseMvpActivity<CategoryDetailPresen
         });
         LinearLayoutManager llm = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         rvContent.setLayoutManager(llm);
+        rvContent.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                JCVideoPlayerStandard jcVideoPlayer = (JCVideoPlayerStandard) view.findViewById(R.id.jc_video_player);
+                jcVideoPlayer.startVideo();
+            }
+        });
         mAdapter = new CategoryDetailAdapter(this, mList);
         rvContent.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener(this);
