@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.mvp.manager.AppManager;
 import com.daydream.studyapp.util.AppUtils;
@@ -49,8 +50,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder = ButterKnife.bind(this);
         StatusBarUtils.setTransparent(this);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        initView(savedInstanceState);
         initData();
+        initView(savedInstanceState);
         onViewCreated();
         AppManager.getAppManager().addActivity(this);
     }

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.daydream.studyapp.api.OpenEyesApis;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
+import com.daydream.studyapp.mvp.bean.IssueListBean;
 import com.daydream.studyapp.mvp.http.HttpHelper;
 import com.daydream.studyapp.mvp.http.RetrofitHelper;
 
@@ -41,5 +42,15 @@ public class DataManager implements HttpHelper {
     @Override
     public Flowable<List<CategoryBean>> getCategoryData() {
         return retrofitService.getCategoryList();
+    }
+
+    @Override
+    public Flowable<IssueListBean> getCategoryDetail(long id) {
+        return retrofitService.getCategoryDetail(id);
+    }
+
+    @Override
+    public Flowable<IssueListBean> getMoreCategoryDetail(String path) {
+        return retrofitService.getMoreCategoryDetail(path);
     }
 }

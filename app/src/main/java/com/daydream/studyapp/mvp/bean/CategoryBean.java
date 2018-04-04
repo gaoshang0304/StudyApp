@@ -19,7 +19,7 @@ public class CategoryBean {
      * defaultAuthorId : 2160
      */
 
-    private int id;
+    private long id;
     private String name;
     private Object alias;
     private String description;
@@ -28,11 +28,11 @@ public class CategoryBean {
     private String headerImage;
     private int defaultAuthorId;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

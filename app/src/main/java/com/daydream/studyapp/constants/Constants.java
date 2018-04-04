@@ -7,10 +7,14 @@ package com.daydream.studyapp.constants;
  */
 
 public class Constants {
-    public static String GANK_HOST = "http://gank.io/";
 
     /**
      * 开眼视频
      */
     public static String OPEN_EYE_HOST = "http://baobab.kaiyanapp.com/api/";
+
+    /**
+     * 分类详情item
+     */
+    public static final String CATEGORY_DETAIL_ITEM = "category_detail_item";
 }

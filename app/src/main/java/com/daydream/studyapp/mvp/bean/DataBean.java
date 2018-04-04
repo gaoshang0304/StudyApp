@@ -22,11 +22,13 @@ public class DataBean {
      */
 
     private String dataType;
-    private int id;
+    private long id;
+    private long duration;
     private String title;
     private String description;
     private String image;
     private String actionUrl;
+    private String playUrl;
     private Object adTrack;
     private boolean shade;
     private Object label;
@@ -41,12 +43,20 @@ public class DataBean {
         this.dataType = dataType;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public String getTitle() {
@@ -55,6 +65,14 @@ public class DataBean {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPlayUrl() {
+        return playUrl;
+    }
+
+    public void setPlayUrl(String url) {
+        this.playUrl = url;
     }
 
     public String getDescription() {

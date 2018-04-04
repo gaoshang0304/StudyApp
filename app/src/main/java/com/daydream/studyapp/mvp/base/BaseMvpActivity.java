@@ -8,7 +8,7 @@ package com.daydream.studyapp.mvp.base;
 
 public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActivity implements BaseView {
 
-    protected T mPresenter;
+    protected T mPresenter = initPresenter();
 
     @Override
     protected void onViewCreated() {

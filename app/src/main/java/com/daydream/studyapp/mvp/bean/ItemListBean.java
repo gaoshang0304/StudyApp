@@ -18,7 +18,7 @@ public class ItemListBean {
     private String type;
     private DataBean data;
     private Object tag;
-    private int id;
+    private long id;
     private int adIndex;
 
     public String getType() {
@@ -45,11 +45,11 @@ public class ItemListBean {
         this.tag = tag;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

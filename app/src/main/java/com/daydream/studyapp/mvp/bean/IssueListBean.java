@@ -14,6 +14,7 @@ public class IssueListBean {
     private String type;
     private long date;
     private long publishTime;
+    private String nextPageUrl;
     private int count;
     private List<ItemListBean> itemList;
 
@@ -47,6 +48,14 @@ public class IssueListBean {
 
     public void setPublishTime(long publishTime) {
         this.publishTime = publishTime;
+    }
+
+    public String getNextPageUrl() {
+        return nextPageUrl;
+    }
+
+    public void setNextPageUrl(String nextPageUrl) {
+        this.nextPageUrl = nextPageUrl;
     }
 
     public int getCount() {
