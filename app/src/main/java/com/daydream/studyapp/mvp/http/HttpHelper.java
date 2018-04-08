@@ -3,10 +3,12 @@ package com.daydream.studyapp.mvp.http;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
 import com.daydream.studyapp.mvp.bean.IssueListBean;
 import com.daydream.studyapp.mvp.bean.HomeDataBean;
+import com.daydream.studyapp.mvp.bean.ItemListBean;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * @author gjc
@@ -19,7 +21,12 @@ public interface HttpHelper {
     /**
      * 获取首页数据
      */
-    Flowable<HomeDataBean> getHomeData();
+    Observable<HomeDataBean> getHomeData();
+
+    /**
+     * 获取更多首页数据
+     */
+    Observable<HomeDataBean> getMoreHomeData(String url);
 
     /**
      * 分类数据

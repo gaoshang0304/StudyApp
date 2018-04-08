@@ -6,4 +6,6 @@
 
     <!--gank-->
     <string name="gankio">干货</string>
+
+    <string name="search_transition_name">transition_reveal</string>
 </resources>

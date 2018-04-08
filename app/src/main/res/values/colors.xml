@@ -21,5 +21,7 @@
     <color name="color_title_bg">#CCFFFFFF</color>
     <!-- 默认背景色 -->
     <color name="backgroundColor">#EEEEEE</color>
+    <color name="color_darker_gray">#aaaaaa</color>
+    <color name="color_translucent">#00000000</color>
 
 </resources>

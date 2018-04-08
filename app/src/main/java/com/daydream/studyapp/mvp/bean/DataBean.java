@@ -1,5 +1,7 @@
 package com.daydream.studyapp.mvp.bean;
 
+import java.util.List;
+
 /**
  * @author gjc
  * @version ;;
@@ -23,12 +25,19 @@ public class DataBean {
 
     private String dataType;
     private long id;
-    private long duration;
+    public Long duration;
+    private long date;
     private String title;
+    private Cover cover;
+    private Author author;
+    private Provider provider;
+    private List<Tags> tags;
     private String description;
+    private String text;
     private String image;
     private String actionUrl;
     private String playUrl;
+    private String category;
     private Object adTrack;
     private boolean shade;
     private Object label;
@@ -59,6 +68,14 @@ public class DataBean {
         this.duration = duration;
     }
 
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -73,6 +90,55 @@ public class DataBean {
 
     public void setPlayUrl(String url) {
         this.playUrl = url;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+
+    public Cover getCover() {
+        return cover;
+    }
+
+    public void setCover(Cover cover) {
+        this.cover = cover;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setProvider(Author author) {
+        this.author = author;
+    }
+
+    public List<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tags> list) {
+        this.tags = list;
     }
 
     public String getDescription() {

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 def buildTime() {
     def date = new Date()
@@ -95,4 +96,11 @@ dependencies {
     //节操播放器
     compile 'fm.jiecao:jiecaovideoplayer:5.5.2'
 
+    //Banner
+    compile 'cn.bingoogolapple:bga-banner:2.1.8@aar'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+}
+repositories {
+    mavenCentral()
 }

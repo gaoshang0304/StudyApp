@@ -1,5 +1,6 @@
 package com.daydream.studyapp.mvp.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
