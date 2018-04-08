@@ -4,13 +4,16 @@ import android.content.Context;
 
 import com.daydream.studyapp.api.OpenEyesApis;
 import com.daydream.studyapp.mvp.bean.CategoryBean;
+import com.daydream.studyapp.mvp.bean.HomeDataBean;
 import com.daydream.studyapp.mvp.bean.IssueListBean;
+import com.daydream.studyapp.mvp.bean.ItemListBean;
 import com.daydream.studyapp.mvp.http.HttpHelper;
 import com.daydream.studyapp.mvp.http.RetrofitHelper;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 /**
  * @author gjc
@@ -37,6 +40,17 @@ public class DataManager implements HttpHelper {
             }
         }
         return instance;
+    }
+
+    @Override
+    public Observable<HomeDataBean> getHomeData() {
+        return retrofitService.getHomeData();
+    }
+
+    @Override
+    public Observable<HomeDataBean> getMoreHomeData(String url) {
+        return retrofitService.getMoreHomeData(url)
+                    .compose(RxUtil.<HomeDataBean>rxOtSchedulerHelper());
     }
 
     @Override

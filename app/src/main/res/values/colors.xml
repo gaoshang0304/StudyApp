@@ -17,7 +17,11 @@
     <color name="list_divider_light">#ffe0e0e0</color>
     <color name="list_divider_dark">#ff666666</color>
 
-
-    <color name="common_text_color">#ffffff</color>
+    <!-- title 半透明背景颜色 -->
+    <color name="color_title_bg">#CCFFFFFF</color>
+    <!-- 默认背景色 -->
+    <color name="backgroundColor">#EEEEEE</color>
+    <color name="color_darker_gray">#aaaaaa</color>
+    <color name="color_translucent">#00000000</color>
 
 </resources>

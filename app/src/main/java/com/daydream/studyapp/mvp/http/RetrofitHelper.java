@@ -49,6 +49,9 @@ public class RetrofitHelper {
         openEyesService = retrofit.create(OpenEyesApis.class);
     }
 
+    /**
+     * 配置okHttp
+     */
     private static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             //SSL证书
             .hostnameVerifier(org.apache.http.conn.ssl.SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER)
