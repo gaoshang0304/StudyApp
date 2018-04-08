@@ -9,12 +9,11 @@ import com.daydream.studyapp.mvp.bean.ItemListBean;
 import com.daydream.studyapp.mvp.contract.HomeContract;
 import com.daydream.studyapp.mvp.manager.DataManager;
 import com.daydream.studyapp.mvp.manager.RxUtil;
-import com.daydream.studyapp.weight.CommonSubscriber;
 
+import java.util.Iterator;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 
@@ -42,10 +41,13 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                     @Override
                     public Observable<HomeDataBean> apply(HomeDataBean homeDataBean) throws Exception {
                         List<ItemListBean> itemList = homeDataBean.getIssueList().get(0).getItemList();
-                        for (int i = 0; i < itemList.size(); i++) {
-                            if ("banner2".equals(itemList.get(i).getType()) || "horizontalScrollCard".equals(itemList.get(i).getType())) {
-                                itemList.remove(i);
+                        Iterator<ItemListBean> iterator = itemList.iterator();
+                        while (iterator.hasNext()) {
+                            ItemListBean bean = iterator.next();
+                            if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
+                                iterator.remove();
                             }
+                            iterator.next();
                         }
                         bannerHomeBean = homeDataBean;
                         Observable<HomeDataBean> moreHomeData = DataManager.getInstance(mContext).getMoreHomeData(homeDataBean.getNextPageUrl());
@@ -58,10 +60,13 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                     public void accept(HomeDataBean homeDataBean) throws Exception {
                         mNextPageUrl = homeDataBean.getNextPageUrl();
                         List<ItemListBean> newItemList = homeDataBean.getIssueList().get(0).getItemList();
-                        for (int i = 0; i < newItemList.size(); i++) {
-                            if ("banner2".equals(newItemList.get(i).getType()) || "horizontalScrollCard".equals(newItemList.get(i).getType())) {
-                                newItemList.remove(i);
+                        Iterator<ItemListBean> iterator = newItemList.iterator();
+                        while (iterator.hasNext()) {
+                            ItemListBean bean = iterator.next();
+                            if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
+                                iterator.remove();
                             }
+                            iterator.next();
                         }
                         // 重新赋值 Banner 长度
                         bannerHomeBean.getIssueList().get(0).setCount(bannerHomeBean.getIssueList().get(0).getItemList().size());
@@ -86,10 +91,13 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                     public void accept(HomeDataBean homeDataBean) throws Exception {
                         mNextPageUrl = homeDataBean.getNextPageUrl();
                         List<ItemListBean> newItemList = homeDataBean.getIssueList().get(0).getItemList();
-                        for (int i = 0; i < newItemList.size(); i++) {
-                            if ("banner2".equals(newItemList.get(i).getType()) || "horizontalScrollCard".equals(newItemList.get(i).getType())) {
-                                newItemList.remove(i);
+                        Iterator<ItemListBean> iterator = newItemList.iterator();
+                        while (iterator.hasNext()) {
+                            ItemListBean bean = iterator.next();
+                            if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
+                                iterator.remove();
                             }
+                            iterator.next();
                         }
                         mView.showMoreContent(homeDataBean);
                     }

@@ -44,6 +44,14 @@ public class HomeAdapter extends MultiItemCommonAdapter<ItemListBean> {
         mBannerSize = count;
     }
 
+    /**
+     * 添加数据
+     */
+    public void addItemData(List<ItemListBean> list) {
+        mData.addAll(list);
+        notifyDataSetChanged();
+    }
+
     @Override
     public void convert(BaseViewHolder holder, ItemListBean itemListBean, int position) {
         int viewType = getItemViewType(position);

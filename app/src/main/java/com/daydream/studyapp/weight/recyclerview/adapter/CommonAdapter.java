@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.daydream.studyapp.weight.recyclerview.BaseViewHolder;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,9 +21,9 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<BaseViewHold
     protected Context mContext;
     protected LayoutInflater mInflater;
     protected int mLayoutId;
-    protected ArrayList<T> mData;
+    protected List<T> mData;
 
-    public CommonAdapter(Context context, ArrayList<T> data, int layoutId) {
+    public CommonAdapter(Context context, List<T> data, int layoutId) {
        mContext = context;
        mInflater = LayoutInflater.from(context);
        mData = data;

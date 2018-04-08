@@ -24,4 +24,6 @@
     <color name="color_darker_gray">#aaaaaa</color>
     <color name="color_translucent">#00000000</color>
 
+    <color name="C_333333">#333333</color>
+
 </resources>

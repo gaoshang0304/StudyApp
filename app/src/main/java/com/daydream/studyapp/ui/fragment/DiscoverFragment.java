@@ -11,8 +11,12 @@ import android.view.View;
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.adapter.FragmentAdapter;
 import com.daydream.studyapp.mvp.base.BaseFragment;
+import com.daydream.studyapp.ui.fragment.gankio.GankExSourceFragment;
 import com.daydream.studyapp.ui.fragment.gankio.GankGirlFragment;
-import com.daydream.studyapp.ui.fragment.gankio.GankNewsFragment;
+import com.daydream.studyapp.ui.fragment.gankio.GankAndroidFragment;
+import com.daydream.studyapp.ui.fragment.gankio.GankHtmlFragment;
+import com.daydream.studyapp.ui.fragment.gankio.GankIosFragment;
+import com.daydream.studyapp.ui.fragment.gankio.GankRestVideoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +36,13 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
     TabLayout tabs;
     @BindView(R.id.fab_classify)
     FloatingActionButton fabClassify;
-    private GankNewsFragment newsFragment;
-    private GankGirlFragment girlFragment;
     private List<String> mTitleList = new ArrayList<>();//页卡标题集合
+    private GankAndroidFragment androidFragment;
+    private GankGirlFragment girlFragment;
+    private GankIosFragment iosFragment;
+    private GankHtmlFragment htmlFragment;
+    private GankExSourceFragment exSourceFragment;
+    private GankRestVideoFragment restVideoFragment;
 
     @Override
     public int getLayoutId() {
@@ -43,15 +51,27 @@ public class DiscoverFragment extends BaseFragment implements ViewPager.OnPageCh
 
     @Override
     public void initUI(View view, @Nullable Bundle savedInstanceState) {
-        newsFragment = new GankNewsFragment();
+        androidFragment = new GankAndroidFragment();
+        iosFragment = new GankIosFragment();
+        htmlFragment = new GankHtmlFragment();
+        exSourceFragment = new GankExSourceFragment();
+        restVideoFragment = new GankRestVideoFragment();
         girlFragment = new GankGirlFragment();
 
         //tabs
-        mTitleList.add("干货");
-        mTitleList.add("妹子");
+        mTitleList.add("Android");
+        mTitleList.add("iOS");
+        mTitleList.add("前端");
+        mTitleList.add("拓展资源");
+        mTitleList.add("休息视频");
+        mTitleList.add("福利");
 
         List<Fragment> list = new ArrayList<>();
-        list.add(newsFragment);
+        list.add(androidFragment);
+        list.add(iosFragment);
+        list.add(htmlFragment);
+        list.add(exSourceFragment);
+        list.add(restVideoFragment);
         list.add(girlFragment);
         vpFragment.setAdapter(new FragmentAdapter(getChildFragmentManager(), list, mTitleList));
         vpFragment.setCurrentItem(0);

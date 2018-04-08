@@ -2,6 +2,7 @@ package com.daydream.studyapp.mvp.http;
 
 import android.content.Context;
 
+import com.daydream.studyapp.api.GankApis;
 import com.daydream.studyapp.api.OpenEyesApis;
 import com.daydream.studyapp.constants.Constants;
 import com.google.gson.GsonBuilder;
@@ -26,6 +27,7 @@ public class RetrofitHelper {
     private static RetrofitHelper instance = null;
     private Context mContext;
     private OpenEyesApis openEyesService;
+    private GankApis gankDataService;
 
     public static RetrofitHelper getInstance(Context context) {
         if (instance == null) {
@@ -47,6 +49,7 @@ public class RetrofitHelper {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         openEyesService = retrofit.create(OpenEyesApis.class);
+        gankDataService = retrofit.create(GankApis.class);
     }
 
     /**
@@ -67,6 +70,10 @@ public class RetrofitHelper {
 
     public OpenEyesApis getOpenEyesService() {
         return openEyesService;
+    }
+
+    public GankApis getGankService() {
+        return gankDataService;
     }
 }
 

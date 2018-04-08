@@ -1,14 +1,16 @@
 package com.daydream.studyapp.ui.fragment;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -22,13 +24,12 @@ import com.daydream.studyapp.mvp.bean.IssueListBean;
 import com.daydream.studyapp.mvp.bean.ItemListBean;
 import com.daydream.studyapp.mvp.contract.HomeContract;
 import com.daydream.studyapp.mvp.presenter.HomePresenter;
+import com.daydream.studyapp.ui.activity.SearchActivity;
 import com.daydream.studyapp.weight.recyclerview.MultiItemSupport;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
-import java.util.TreeMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -91,6 +92,15 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
 
     @OnClick(R.id.iv_search)
     public void onViewClicked() {
+        Intent intent = new Intent(mContext, SearchActivity.class);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            Pair pair = new Pair<View, String>(ivSearch, "IMG_TRANSITION");
+            ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(mActivity, pair);
+            ActivityCompat.startActivity(mActivity, intent, activityOptions.toBundle());
+        } else {
+            startActivity(intent);
+            mActivity.overridePendingTransition(R.anim.activity_finish_zoom_in, R.anim.activity_finish_zoom_out);
+        }
     }
 
     @Override

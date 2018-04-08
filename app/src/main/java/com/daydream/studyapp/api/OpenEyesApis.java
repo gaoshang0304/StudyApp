@@ -1,9 +1,8 @@
 package com.daydream.studyapp.api;
 
 import com.daydream.studyapp.mvp.bean.CategoryBean;
-import com.daydream.studyapp.mvp.bean.IssueListBean;
 import com.daydream.studyapp.mvp.bean.HomeDataBean;
-import com.daydream.studyapp.mvp.bean.ItemListBean;
+import com.daydream.studyapp.mvp.bean.IssueListBean;
 
 import java.util.List;
 
@@ -52,5 +51,11 @@ public interface OpenEyesApis {
      */
     @GET
     Flowable<IssueListBean> getMoreCategoryDetail(@Url String path);
+
+    /**
+     * 热搜词
+     */
+    @GET("v3/queries/hot")
+    Observable<List<String>> getHotSearch();
 
 }

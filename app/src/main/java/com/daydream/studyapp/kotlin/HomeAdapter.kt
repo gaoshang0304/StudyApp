@@ -208,7 +208,7 @@ class HomeAdapter(context: Context, data: ArrayList<ItemListBean>)
             tagText += (it.name + "/")
         }
         // 格式化时间
-        val timeFormat = durationFormat(itemData.duration)
+        val timeFormat = durationFormat(itemData.duration?:0)
 
         tagText += timeFormat
 
