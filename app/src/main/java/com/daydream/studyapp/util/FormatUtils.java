@@ -1,5 +1,7 @@
 package com.daydream.studyapp.util;
 
+import android.support.annotation.Nullable;
+
 /**
  * Created by dayDream on 2018/4/6.
  */
@@ -27,5 +29,19 @@ public class FormatUtils {
             }
         }
         return result;
+    }
+
+    /**
+     * 干货集中营 切割标准时间
+     * @param time
+     * @return
+     */
+    @Nullable
+    public static String subStandardTime(String time) {
+        int idx = time.indexOf("T");
+        if (idx > 0) {
+            return time.substring(0, idx);
+        }
+        return null;
     }
 }

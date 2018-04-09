@@ -5,12 +5,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.daydream.studyapp.R;
-import com.daydream.studyapp.adapter.GankGirlAdapter;
+import com.daydream.studyapp.adapter.GankListAdapter;
 import com.daydream.studyapp.mvp.base.BaseMvpFragment;
 import com.daydream.studyapp.mvp.bean.gank.GankListBean;
 import com.daydream.studyapp.mvp.contract.GankCategoryContract;
@@ -22,13 +21,13 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 福利
+ * Tech news
  *
  * @author gjc
  * @version ;;
  * @since 2017-12-13
  */
-public class GankGirlFragment extends BaseMvpFragment<GankPresenter> implements GankCategoryContract.View, SwipeRefreshLayout.OnRefreshListener {
+public class GankNewsFragment extends BaseMvpFragment<GankPresenter> implements GankCategoryContract.View, SwipeRefreshLayout.OnRefreshListener, GankListAdapter.OnItemClickListener {
 
     @BindView(R.id.rv_gankio_girl)
     RecyclerView rvContent;
@@ -37,7 +36,7 @@ public class GankGirlFragment extends BaseMvpFragment<GankPresenter> implements 
     private String mCategory = "";
     private int mPage = 1;
     private boolean loadingMore;
-    private GankGirlAdapter mAdapter;
+    private GankListAdapter mAdapter;
     private List<GankListBean> mBean = new ArrayList<>();
 
     @Override
@@ -56,12 +55,13 @@ public class GankGirlFragment extends BaseMvpFragment<GankPresenter> implements 
         if (category != null && !TextUtils.isEmpty(category)) {
             mCategory = category;
         }
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         rvContent.setLayoutManager(layoutManager);
         rvContent.addOnScrollListener(new MyRvScrollListener());
         srlRefresh.setOnRefreshListener(this);
         srlRefresh.setRefreshing(true);
-        mAdapter = new GankGirlAdapter(mContext, mBean, R.layout.item_gank_girl);
+        mAdapter = new GankListAdapter(mContext, mBean, R.layout.item_gank_data);
+        mAdapter.setOnItemClickListener(this);
         rvContent.setAdapter(mAdapter);
 
         mPresenter.getGankContent(mCategory, mPage);
@@ -82,15 +82,19 @@ public class GankGirlFragment extends BaseMvpFragment<GankPresenter> implements 
         mPresenter.getGankContent(mCategory, mPage);
     }
 
+    @Override
+    public void onItemClickListener(GankListBean item) {
+
+    }
+
     private class MyRvScrollListener extends RecyclerView.OnScrollListener {
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
             int itemCount = recyclerView.getLayoutManager().getItemCount();
-            StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
-            int[] itemPositions = layoutManager.findLastVisibleItemPositions(null);
-            int lastPosition = Math.max(itemPositions[0], itemPositions[1]);
-            if (!loadingMore && lastPosition == (itemCount - 3)) {
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            int position = layoutManager.findLastVisibleItemPosition();
+            if (!loadingMore && position == (itemCount - 1)) {
                 loadingMore = true;
                 mPresenter.getGankContent(mCategory, ++mPage);
             }

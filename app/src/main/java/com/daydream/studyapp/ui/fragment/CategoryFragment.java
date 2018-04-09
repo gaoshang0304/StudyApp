@@ -71,11 +71,12 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
     }
 
     @Override
-    public void onItemClickListener(CategoryBean item) {
+    public void onItemClickListener(CategoryBean item, View itemView) {
         String json = JsonUtil.parseBeanToString(item);
         Intent intent = new Intent(mActivity, CategoryDetailActivity.class);
         intent.putExtra(Constants.CATEGORY_DETAIL_ITEM, json);
         startActivity(intent);
+
     }
 
 }

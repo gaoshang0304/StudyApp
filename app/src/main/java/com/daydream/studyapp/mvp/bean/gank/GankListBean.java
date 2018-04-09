@@ -33,6 +33,16 @@ public class GankListBean {
     private boolean used;
     private String who;
 
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    private int height;
+
     public String get_id() {
         return _id;
     }

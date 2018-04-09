@@ -49,7 +49,15 @@ public class RetrofitHelper {
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();
         openEyesService = retrofit.create(OpenEyesApis.class);
-        gankDataService = retrofit.create(GankApis.class);
+
+        // TODO: 2018/4/9 可优化 ，传入baseUrl
+        Retrofit retrofit2 = new Retrofit.Builder()
+                .baseUrl(Constants.GANK_HOST)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
+                .build();
+        gankDataService = retrofit2.create(GankApis.class);
     }
 
     /**

@@ -40,7 +40,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         final CategoryBean item = mBean.get(position);
         ImageLoader.loadImage(mContext, item.getBgPicture(), holder.ivItemBg);
         holder.tvCategoryName.setText(item.getName());
@@ -49,7 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickListener(item);
+                    onItemClickListener.onItemClickListener(item, holder.ivItemBg);
                 }
             }
         });
@@ -79,6 +79,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClickListener(CategoryBean item);
+        void onItemClickListener(CategoryBean item, View itemView);
     }
 }

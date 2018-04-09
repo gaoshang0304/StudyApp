@@ -25,5 +25,6 @@
     <color name="color_translucent">#00000000</color>
 
     <color name="C_333333">#333333</color>
+    <color name="comment_reply">#9ba4a3</color>
 
 </resources>

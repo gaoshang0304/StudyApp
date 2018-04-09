@@ -18,7 +18,6 @@ public interface GankCategoryContract {
 
         void showGankContent(List<GankListBean> list);
 
-        void showMoreGankData(List<GankListBean> list);
     }
 
     interface Presenter extends BasePresenter<View> {
