@@ -87,6 +87,7 @@ dependencies {
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
     compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     compile "com.jakewharton.rxbinding2:rxbinding:$rootProject.rxbindingVersion"
+    compile "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar"
     //BaseRecyclerViewAdapterHelper
     compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:$rootProject.BaseRecyclerViewAdapterHelperVersion"
     // Glide

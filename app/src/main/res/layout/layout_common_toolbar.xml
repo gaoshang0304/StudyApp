@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="SecondActivity"
+        android:text=""
         android:textColor="@android:color/white"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"/>
 

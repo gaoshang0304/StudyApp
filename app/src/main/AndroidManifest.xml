@@ -31,6 +31,11 @@
             android:name=".ui.activity.SearchActivity"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustPan"/>
+
+        <activity
+            android:name=".ui.activity.GirlDetailActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.daydream.studyapp.ui.fragment;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -75,7 +76,8 @@ public class CategoryFragment extends BaseMvpFragment<CategoryPresenter> impleme
         String json = JsonUtil.parseBeanToString(item);
         Intent intent = new Intent(mActivity, CategoryDetailActivity.class);
         intent.putExtra(Constants.CATEGORY_DETAIL_ITEM, json);
-        startActivity(intent);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), itemView, "item_view");
+        startActivity(intent, options.toBundle());
 
     }
 

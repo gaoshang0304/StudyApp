@@ -60,7 +60,7 @@ public class GankNewsFragment extends BaseMvpFragment<GankPresenter> implements 
         rvContent.addOnScrollListener(new MyRvScrollListener());
         srlRefresh.setOnRefreshListener(this);
         srlRefresh.setRefreshing(true);
-        mAdapter = new GankListAdapter(mContext, mBean, R.layout.item_gank_data);
+        mAdapter = new GankListAdapter(R.layout.item_gank_data, mBean);
         mAdapter.setOnItemClickListener(this);
         rvContent.setAdapter(mAdapter);
 
@@ -69,11 +69,18 @@ public class GankNewsFragment extends BaseMvpFragment<GankPresenter> implements 
 
     @Override
     public void showGankContent(List<GankListBean> list) {
-        loadingMore = false;
-        mAdapter.addMoreData(list);
+        mBean.clear();
+        mBean.addAll(list);
         if (srlRefresh.isRefreshing()) {
             srlRefresh.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showGankMoreContent(List<GankListBean> list) {
+        loadingMore = false;
+        mBean.addAll(list);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

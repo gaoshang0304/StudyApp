@@ -25,14 +25,18 @@ public class GankPresenter extends RxPresenter<GankCategoryContract.View> implem
     }
 
     @Override
-    public void getGankContent(String category, int page) {
+    public void getGankContent(String category, final int page) {
         addSubscribe(DataManager.getInstance(mContext).getGankData(category, page)
             .compose(RxUtil.<ResponseResult>rxOtSchedulerHelper())
             .subscribe(new Consumer<ResponseResult>() {
                 @Override
                 public void accept(ResponseResult result) throws Exception {
                     if (!result.isError()) {
-                        mView.showGankContent(result.getResults());
+                        if (1 == page) {
+                            mView.showGankContent(result.getResults());
+                        } else {
+                            mView.showGankMoreContent(result.getResults());
+                        }
                     }
                 }
             }));

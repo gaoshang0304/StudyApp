@@ -6,6 +6,8 @@
 
     <!--gank-->
     <string name="gankio">干货</string>
-
     <string name="search_transition_name">transition_reveal</string>
+    <string name="action_save">保存到本地</string>
+    <string name="action_share">分享链接</string>
+    <string name="action_like">收藏</string>
 </resources>
