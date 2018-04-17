@@ -28,7 +28,7 @@ public class CategoryDetailPresenter extends RxPresenter<CategoryDetailContract.
     public void getCategoryDetailList(long id) {
         addSubscribe(DataManager.getInstance(mContext).getCategoryDetail(id)
             .compose(RxUtil.<IssueListBean>rxSchedulerHelper())
-            .subscribeWith(new CommonSubscriber<IssueListBean>(mView) {
+            .subscribeWith(new CommonSubscriber<IssueListBean>(mView, "加载数据失败", true) {
 
                 @Override
                 public void onNext(IssueListBean issueListBean) {
@@ -42,7 +42,7 @@ public class CategoryDetailPresenter extends RxPresenter<CategoryDetailContract.
     public void getMoreCategoryDetail() {
         addSubscribe(DataManager.getInstance(mContext).getMoreCategoryDetail(nextPageUrl)
                 .compose(RxUtil.<IssueListBean>rxSchedulerHelper())
-                .subscribeWith(new CommonSubscriber<IssueListBean>(mView) {
+                .subscribeWith(new CommonSubscriber<IssueListBean>(mView, "加载更多数据失败") {
                     @Override
                     public void onNext(IssueListBean issueListBean) {
                         mView.showCategoryDetail(issueListBean);

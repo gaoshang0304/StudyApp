@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.daydream.studyapp.util.ToastUtil;
+
 /**
  * @author gjc
  * @version ;;
@@ -37,6 +39,31 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseFragm
 
     @Override
     public void dismissLoadingDialog() {
+
+    }
+
+    @Override
+    public void showErrorMsg(String msg) {
+        ToastUtil.showToast(mContext, msg);
+    }
+
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void stateEmpty() {
+
+    }
+
+    @Override
+    public void stateLoading() {
+
+    }
+
+    @Override
+    public void stateMain() {
 
     }
 

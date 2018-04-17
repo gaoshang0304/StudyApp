@@ -11,4 +11,15 @@ public interface BaseView {
 
     //取消dialog
     void dismissLoadingDialog();
+
+    void showErrorMsg(String msg);
+
+    //=======  State  =======
+    void stateError();
+
+    void stateEmpty();
+
+    void stateLoading();
+
+    void stateMain();
 }

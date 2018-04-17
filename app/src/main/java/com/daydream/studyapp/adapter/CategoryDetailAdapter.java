@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.daydream.studyapp.R;
 import com.daydream.studyapp.mvp.bean.ItemListBean;
+import com.daydream.studyapp.util.glide.ImageLoader;
 
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class CategoryDetailAdapter extends RecyclerView.Adapter<CategoryDetailAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         final ItemListBean item = mBean.get(position);
         holder.jcVideo.setUp(item.getData().getPlayUrl(), JCVideoPlayer.SCREEN_LAYOUT_NORMAL, item.getData().getTitle());
+        ImageLoader.loadImage(mContext, item.getData().getImage(), holder.jcVideo.thumbImageView);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

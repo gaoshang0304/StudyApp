@@ -1,10 +1,12 @@
 package com.daydream.studyapp.weight;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.daydream.studyapp.mvp.base.BaseView;
 
 import io.reactivex.subscribers.ResourceSubscriber;
+import retrofit2.HttpException;
 
 /**
  * Created by codeest on 2017/2/23.
@@ -46,7 +48,15 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
             return;
         }
         if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-            mView.showLoadingDialog(mErrorMsg);
+            mView.showErrorMsg(mErrorMsg);
+        } else if (e instanceof HttpException) {
+            mView.showErrorMsg("数据加载失败ヽ(≧Д≦)ノ");
+        } else {
+            mView.showErrorMsg("未知错误ヽ(≧Д≦)ノ");
+            Log.d("app", e.toString());
+        }
+        if (isShowErrorState) {
+            mView.stateError();
         }
     }
 }

@@ -7,6 +7,8 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.squareup.leakcanary.LeakCanary;
+
 
 /**
  * Created by gjc on 2017/12/13.
@@ -33,6 +35,8 @@ public class MyApplication extends Application {
         app = this;
         //初始化屏幕宽高
         getScreenSize();
+        //初始化leak Canary
+        LeakCanary.install(this);
 
     }
 

@@ -1,5 +1,7 @@
 package com.daydream.studyapp.mvp.base;
 
+import com.daydream.studyapp.util.ToastUtil;
+
 /**
  * @author gjc
  * @version ;;
@@ -32,6 +34,31 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
 
     @Override
     public void dismissLoadingDialog() {
+
+    }
+
+    @Override
+    public void showErrorMsg(String msg) {
+        ToastUtil.showToast(mContext, msg);
+    }
+
+    @Override
+    public void stateError() {
+
+    }
+
+    @Override
+    public void stateEmpty() {
+
+    }
+
+    @Override
+    public void stateLoading() {
+
+    }
+
+    @Override
+    public void stateMain() {
 
     }
 

@@ -20,8 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitHelper {
-    private static final int TIMEOUT_READ = 20;
-    private static final int TIMEOUT_CONNECTION = 10;
+    private static final int TIMEOUT_READ = 10;
+    private static final int TIMEOUT_CONNECTION = 5;
     private static final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor()
             .setLevel(HttpLoggingInterceptor.Level.BODY);
     private static RetrofitHelper instance = null;
