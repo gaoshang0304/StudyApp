@@ -1,10 +1,5 @@
 package com.daydream.studyapp.http;
 
-import android.os.Handler;
-import android.os.Looper;
-
-import java.net.CookieManager;
-import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -18,6 +13,8 @@ import okhttp3.OkHttpClient;
 public class HttpClientHelper {
 
     private static OkHttpClient mClient;
+    private final String logTag = "HttpUtils";
+    private LoggerInterceptor loggerInterceptor = new LoggerInterceptor(logTag);
 
     public HttpClientHelper() {
         /**
@@ -27,15 +24,19 @@ public class HttpClientHelper {
         /**
          * 设置读取的超时时间
          */
-        builder.readTimeout(10, TimeUnit.SECONDS);
-        /**
-         * 设置连接的超时时间
-         */
-        builder.connectTimeout(10, TimeUnit.SECONDS);
+        builder.readTimeout(60, TimeUnit.SECONDS);
         /**
          * 设置写入的超时时间
          */
-        builder.writeTimeout(30, TimeUnit.SECONDS);
+        builder.writeTimeout(60, TimeUnit.SECONDS);
+        /**
+         * 设置连接的超时时间
+         */
+        builder.connectTimeout(60, TimeUnit.SECONDS);
+        /**
+         * 设置log拦截
+         */
+        builder.addInterceptor(loggerInterceptor);
 
     }
 
