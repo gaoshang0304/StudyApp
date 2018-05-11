@@ -47,7 +47,6 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                             if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
                                 iterator.remove();
                             }
-                            iterator.next();
                         }
                         bannerHomeBean = homeDataBean;
                         Observable<HomeDataBean> moreHomeData = DataManager.getInstance(mContext).getMoreHomeData(homeDataBean.getNextPageUrl());
@@ -66,7 +65,6 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                             if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
                                 iterator.remove();
                             }
-                            iterator.next();
                         }
                         // 重新赋值 Banner 长度
                         bannerHomeBean.getIssueList().get(0).setCount(bannerHomeBean.getIssueList().get(0).getItemList().size());
@@ -97,7 +95,6 @@ public class HomePresenter extends RxPresenter<HomeContract.View> implements Hom
                             if ("banner2".equals(bean.getType()) || "horizontalScrollCard".equals(bean.getType())) {
                                 iterator.remove();
                             }
-                            iterator.next();
                         }
                         mView.showMoreContent(homeDataBean);
                     }
